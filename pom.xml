@@ -10,12 +10,19 @@
     <modules>
         <module>elastic</module>
         <module>common</module>
+        <module>netty</module>
     </modules>
     <packaging>pom</packaging>
 
     <properties>
+
+        <compiler.version>1.8</compiler.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <elastic.version>6.4.2</elastic.version>
-        <junit.version>5.3.1</junit.version>
+        <junit.version>5.2.0</junit.version>
+        <mockito.version>1.10.19</mockito.version>
+        <netty.version>4.1.30.Final</netty.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -29,8 +36,34 @@
                 <artifactId>junit-bom</artifactId>
                 <version>${junit.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
-    <build></build>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${compiler.version}</source>
+                    <target>${compiler.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+                <version>3.6.1</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -25,6 +25,4 @@
 hs_err_pid*
 
 .idea/
-ekfet-java-parent.iml
-pom.xml
-src/
+*.iml

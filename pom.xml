@@ -11,6 +11,7 @@
         <module>elastic</module>
         <module>common</module>
         <module>netty</module>
+        <module>akka</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -20,9 +21,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <elastic.version>6.4.2</elastic.version>
-        <junit.version>5.2.0</junit.version>
+        <junit.version>4.12</junit.version>
         <mockito.version>1.10.19</mockito.version>
         <netty.version>4.1.30.Final</netty.version>
+        <akka-actor.version>2.5.16</akka-actor.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -46,6 +48,24 @@
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty.version}</version>
+            </dependency>
+
+            <dependency>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor_2.12</artifactId>
+            <version>${akka-actor.version}</version>
+        </dependency>
+            <dependency>
+                <groupId>com.typesafe.akka</groupId>
+                <artifactId>akka-testkit_2.12</artifactId>
+                <version>${akka-actor.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
             </dependency>
 
         </dependencies>

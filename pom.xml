@@ -25,6 +25,9 @@
         <mockito.version>1.10.19</mockito.version>
         <netty.version>4.1.30.Final</netty.version>
         <akka-actor.version>2.5.16</akka-actor.version>
+
+        <scala.lang.version>2.11.12</scala.lang.version>
+
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -51,10 +54,10 @@
             </dependency>
 
             <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor_2.12</artifactId>
-            <version>${akka-actor.version}</version>
-        </dependency>
+                <groupId>com.typesafe.akka</groupId>
+                <artifactId>akka-actor_2.12</artifactId>
+                <version>${akka-actor.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.typesafe.akka</groupId>
                 <artifactId>akka-testkit_2.12</artifactId>
@@ -66,6 +69,21 @@
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-library</artifactId>
+                <version>${scala.lang.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-compiler</artifactId>
+                <version>${scala.lang.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-reflect</artifactId>
+                <version>${scala.lang.version}</version>
             </dependency>
 
         </dependencies>

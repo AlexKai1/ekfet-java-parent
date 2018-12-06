@@ -1,4 +1,4 @@
-package com.ekfet.java
+package com.ekfet.akka
 
 import org.junit._
 import Assert._

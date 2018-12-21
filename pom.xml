@@ -17,7 +17,7 @@
 
     <properties>
 
-        <compiler.version>1.8</compiler.version>
+        <compiler.version>11</compiler.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <elastic.version>6.4.2</elastic.version>

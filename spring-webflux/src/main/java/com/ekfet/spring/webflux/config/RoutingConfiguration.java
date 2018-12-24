@@ -1,6 +1,6 @@
 package com.ekfet.spring.webflux.config;
 
-import com.ekfet.webflux.webflux.handler.UserHandler;
+import com.ekfet.spring.webflux.handler.UserHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -21,9 +21,9 @@ public class RoutingConfiguration {
 
     @Bean
     public RouterFunction<ServerResponse> monoRouterFunction(UserHandler userHandler) {
-        return route(GET("/user").and(accept(APPLICATION_JSON)), userHandler::getUser)
+        return route(POST("/user/getUser").and(accept(APPLICATION_JSON)), userHandler::getUser)
                 .andRoute(GET("/user/customers").and(accept(APPLICATION_JSON)), userHandler::getUserCustomers)
-                .andRoute(DELETE("/user").and(accept(APPLICATION_JSON)), userHandler::deleteUser);
+                .andRoute(DELETE("/user/del").and(accept(APPLICATION_JSON)), userHandler::deleteUser);
     }
 
 

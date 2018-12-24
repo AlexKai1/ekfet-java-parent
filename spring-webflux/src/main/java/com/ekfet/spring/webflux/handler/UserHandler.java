@@ -4,6 +4,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
@@ -21,6 +22,10 @@ public class UserHandler {
     public Mono<ServerResponse> getUser(ServerRequest request) {
        final Map<String,Object> user=new HashMap<>();
         user.put("userName","zhangsan");
+        Mono<Map> mapMono=request.bodyToMono(Map.class);
+        System.out.println( mapMono.toString());
+        request.headers().accept().add(MediaType.APPLICATION_JSON_UTF8);
+        Flux<Map> requestData= request.bodyToFlux(Map.class);
          return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON_UTF8).syncBody(user);
     }
 

@@ -12,6 +12,7 @@
         <module>common</module>
         <module>netty</module>
         <module>akka</module>
+        <module>reactive</module>
     </modules>
     <packaging>pom</packaging>
 

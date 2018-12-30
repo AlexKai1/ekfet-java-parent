@@ -13,6 +13,7 @@
         <module>netty</module>
         <module>akka</module>
         <module>reactive</module>
+        <module>spi</module>
     </modules>
     <packaging>pom</packaging>
 

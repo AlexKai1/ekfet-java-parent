@@ -3,10 +3,6 @@ package com.ekfet.common.java11;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 /**
  * @author radish.zhou
@@ -20,30 +16,30 @@ public class HttpClientTest {
     }
 
     public static void get() {
-        HttpClient httpClient = HttpClient.newBuilder().build();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/user/getUser"))
-                .build();
-        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenAccept(System.out::println)
-                .join();
+//        HttpClient httpClient = HttpClient.newBuilder().build();
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create("http://localhost:8080/user/getUser"))
+//                .build();
+//        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+//                .thenApply(HttpResponse::body)
+//                .thenAccept(System.out::println)
+//                .join();
 
     }
 
     public static void get1() {
-        HttpClient httpClient = HttpClient.newBuilder().build();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/user/getUser"))
-                .build();
-        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenAccept(response -> {
-                    System.out.println(
-                            response.statusCode()
-                    );
-                })
-                .thenAccept(System.out::println)
-                .join();
+//        HttpClient httpClient = HttpClient.newBuilder().build();
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create("http://localhost:8080/user/getUser"))
+//                .build();
+//        httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+//                .thenAccept(response -> {
+//                    System.out.println(
+//                            response.statusCode()
+//                    );
+//                })
+//                .thenAccept(System.out::println)
+//                .join();
 
     }
 

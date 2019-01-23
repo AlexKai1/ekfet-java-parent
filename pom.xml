@@ -15,6 +15,7 @@
         <module>reactive</module>
         <module>spi</module>
         <module>protobuf</module>
+        <module>grpc</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -16,6 +16,8 @@
         <module>spi</module>
         <module>protobuf</module>
         <module>grpc</module>
+        <module>mybatis</module>
+        <module>jsengine</module>
     </modules>
     <packaging>pom</packaging>
 

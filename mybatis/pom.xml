@@ -13,6 +13,7 @@
 
     <properties>
         <mybatis.version>3.4.6</mybatis.version>
+        <mybatis.pagehelper.version>5.1.8</mybatis.pagehelper.version>
     </properties>
 
     <dependencies>
@@ -24,7 +25,7 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>5.1.2</version>
+            <version>${mybatis.pagehelper.version}</version>
         </dependency>
 
     </dependencies>

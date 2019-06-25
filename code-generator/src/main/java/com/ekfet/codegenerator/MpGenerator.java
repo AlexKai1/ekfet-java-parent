@@ -90,7 +90,7 @@ public class MpGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.blockchain.invested");
-        pc.setModuleName("client");
+        pc.setModuleName("server");
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 【可无】

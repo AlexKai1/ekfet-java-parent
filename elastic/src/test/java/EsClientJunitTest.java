@@ -1,3 +1,4 @@
+import com.alibaba.fastjson.JSON;
 import com.ekfet.elastic.EsHighRestClient;
 import com.ekfet.elastic.config.ElasticClientConfig;
 import org.apache.http.HttpEntity;
@@ -11,11 +12,19 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class EsClientJunitTest {
@@ -56,8 +65,7 @@ public class EsClientJunitTest {
         RestHighLevelClient restClient = EsHighRestClient.initClient();
         System.out.println(restClient);
 
-        IndexRequest indexRequest = new IndexRequest("book", "science");
-
+        IndexRequest indexRequest = new IndexRequest("books", "science");
 
 
         XContentBuilder builder = XContentFactory.jsonBuilder();
@@ -80,7 +88,7 @@ public class EsClientJunitTest {
                     "俞黎敏（YuLimin，网名：阿敏总司令） 2008年7月加入IBM广州分公司，担任高级技术顾问，主要负责WebSphere系列产品以及云计算、物联网相关的技术支持工作，专注于产品新特性、系统性能调优、疑难问题诊断与解决。开源爱好者，曾参与Spring中文论坛组织的《Spring 2.0 Reference》中文翻译的一审与二审，满江红开放技术研究组织的《Seam 1.2.1 Reference》的中文翻译，组织完成了《Seam 2.0 Reference》的中文翻译工作。CSDN、CJSDN、Dev2Dev、Matrix、JavaWorldTW、Spring中文等Java论坛的版主，在各大技术社区为推动开源和敏捷开发做出了积极的贡献。翻译与审校过多本图书。\n" +
                     "\n" +
                     "个人网站：http://www.Java2Class.net；博客：http://blog.csdn.net/YuLimin/");
-            builder.field("chapter","推荐序\n" +
+            builder.field("chapter", "推荐序\n" +
                     "\n" +
                     "译者序\n" +
                     "\n" +
@@ -318,5 +326,252 @@ public class EsClientJunitTest {
                         .lines()
                         .collect(Collectors.joining(System.lineSeparator()));
         System.out.println(resultJson);
+    }
+
+    @Test
+    public void importEs() throws Exception {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://192.168.1.112:3306/db_es_test?characterEncoding=utf8&useSSL=false");
+        dataSource.setUsername("root");
+        dataSource.setPassword("password");
+
+        // 创建JDBC模板
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        // 这里也可以使用构造方法
+        jdbcTemplate.setDataSource(dataSource);
+
+        int pageNo = 1;
+        int pageSize = 1000;
+        Long count = jdbcTemplate.queryForObject("select count(*)  from t_asset_change_records", Long.class);
+        Long selectCount = 0L;
+        String sql = "select *  from t_asset_change_records limit ?,?";
+        String sql1 = null;
+        List<Asset> list = null;
+        RestHighLevelClient restClient = null;
+        IndexRequest indexRequest = null;
+        while (selectCount < count) {
+            restClient = EsHighRestClient.initClient();
+            indexRequest = new IndexRequest("asset", "change");
+            selectCount += pageSize;
+            pageNo += 1;
+            list = jdbcTemplate.query(sql, new Object[]{pageNo, pageSize}, new RowMapper<Asset>() {
+                @Override
+                public Asset mapRow(ResultSet resultSet, int i) throws SQLException {
+                    Asset asset = new Asset();
+                    asset.setId(resultSet.getInt("id"));
+                    asset.setTxId(resultSet.getString("tx_id"));
+                    asset.setUserId(resultSet.getLong("user_id"));
+                    asset.setUserName(resultSet.getString("user_name"));
+                    asset.setContributorId(resultSet.getLong("contributor_id"));
+                    asset.setContributorName(resultSet.getString("contributor_name"));
+                    asset.setCoinId(resultSet.getInt("coin_id"));
+                    asset.setCoinName(resultSet.getString("coin_name"));
+                    asset.setOperateType(resultSet.getInt("operate_type"));
+                    asset.setBeforeTotalAmount(resultSet.getBigDecimal("before_total_amount"));
+                    asset.setBeforeFreezeAmount(resultSet.getBigDecimal("before_freeze_amount"));
+                    asset.setAfterTotalAmount(resultSet.getBigDecimal("after_total_amount"));
+                    asset.setAfterFreezeAmount(resultSet.getBigDecimal("after_freeze_amount"));
+                    asset.setAmount(resultSet.getBigDecimal("amount"));
+                    asset.setRemark(resultSet.getString("remark"));
+                    asset.setCreateTime(resultSet.getDate("create_time"));
+                    asset.setModifyTime(resultSet.getDate("modify_time"));
+                    return asset;
+                }
+            });
+
+            indexRequest.source(list.toArray());
+            restClient.close();
+
+        }
+
+        // List<Asset> list= jdbcTemplate.query(sql, new Object[]{pageNo, pageSize},);
+
+    }
+
+    static public class Asset {
+        private Integer id;// id
+        private String txId;// 交易流水ID
+        private Long userId;// 用户id
+        private String userName;// 用户名
+        private Long contributorId;// 贡献用户id
+        private String contributorName;// 贡献用户名
+        private Integer coinId;// 币ID
+        private String coinName;// 币种名称
+        private Integer operateType;// 操作类型
+        private java.math.BigDecimal beforeTotalAmount;// 操作前总数量
+        private java.math.BigDecimal beforeFreezeAmount;// 操作前冻结数量
+        private java.math.BigDecimal afterTotalAmount;// 操作后总数量
+        private java.math.BigDecimal afterFreezeAmount;// 操作后冻结数量
+        private java.math.BigDecimal amount;// 数量
+        private Integer remarkType;//备注类型
+        private String remark;//备注
+        private java.util.Date createTime;// 创建时间
+        private java.util.Date modifyTime;// 修改时间
+
+        private String startTime;//开始日期
+        private String endTime;//结束日期
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+
+        public String getTxId() {
+            return txId;
+        }
+
+        public void setTxId(String txId) {
+            this.txId = txId;
+        }
+
+        public Long getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public Long getContributorId() {
+            return contributorId;
+        }
+
+        public void setContributorId(Long contributorId) {
+            this.contributorId = contributorId;
+        }
+
+        public String getContributorName() {
+            return contributorName;
+        }
+
+        public void setContributorName(String contributorName) {
+            this.contributorName = contributorName;
+        }
+
+        public Integer getCoinId() {
+            return coinId;
+        }
+
+        public void setCoinId(Integer coinId) {
+            this.coinId = coinId;
+        }
+
+        public String getCoinName() {
+            return coinName;
+        }
+
+        public void setCoinName(String coinName) {
+            this.coinName = coinName;
+        }
+
+        public Integer getOperateType() {
+            return operateType;
+        }
+
+        public void setOperateType(Integer operateType) {
+            this.operateType = operateType;
+        }
+
+        public BigDecimal getBeforeTotalAmount() {
+            return beforeTotalAmount;
+        }
+
+        public void setBeforeTotalAmount(BigDecimal beforeTotalAmount) {
+            this.beforeTotalAmount = beforeTotalAmount;
+        }
+
+        public BigDecimal getBeforeFreezeAmount() {
+            return beforeFreezeAmount;
+        }
+
+        public void setBeforeFreezeAmount(BigDecimal beforeFreezeAmount) {
+            this.beforeFreezeAmount = beforeFreezeAmount;
+        }
+
+        public BigDecimal getAfterTotalAmount() {
+            return afterTotalAmount;
+        }
+
+        public void setAfterTotalAmount(BigDecimal afterTotalAmount) {
+            this.afterTotalAmount = afterTotalAmount;
+        }
+
+        public BigDecimal getAfterFreezeAmount() {
+            return afterFreezeAmount;
+        }
+
+        public void setAfterFreezeAmount(BigDecimal afterFreezeAmount) {
+            this.afterFreezeAmount = afterFreezeAmount;
+        }
+
+        public BigDecimal getAmount() {
+            return amount;
+        }
+
+        public void setAmount(BigDecimal amount) {
+            this.amount = amount;
+        }
+
+        public Integer getRemarkType() {
+            return remarkType;
+        }
+
+        public void setRemarkType(Integer remarkType) {
+            this.remarkType = remarkType;
+        }
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
+        public Date getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(Date createTime) {
+            this.createTime = createTime;
+        }
+
+        public Date getModifyTime() {
+            return modifyTime;
+        }
+
+        public void setModifyTime(Date modifyTime) {
+            this.modifyTime = modifyTime;
+        }
+
+        public String getStartTime() {
+            return startTime;
+        }
+
+        public void setStartTime(String startTime) {
+            this.startTime = startTime;
+        }
+
+        public String getEndTime() {
+            return endTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime;
+        }
+
+
     }
 }

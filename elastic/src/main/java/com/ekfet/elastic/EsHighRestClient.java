@@ -10,7 +10,7 @@ public class EsHighRestClient {
 
     public static RestHighLevelClient initClient() {
         RestHighLevelClient client = new RestHighLevelClient(
-                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+                RestClient.builder(new HttpHost("192.168.1.112", 9200, "http"))
         );
         return client;
 

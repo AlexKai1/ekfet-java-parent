@@ -20,6 +20,7 @@
         <module>jsengine</module>
         <module>mq</module>
         <module>fescar</module>
+        <module>mybatis-plus</module>
     </modules>
     <packaging>pom</packaging>
 

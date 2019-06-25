@@ -21,6 +21,7 @@
         <module>mq</module>
         <module>fescar</module>
         <module>mybatis-plus</module>
+        <module>code-generator</module>
     </modules>
     <packaging>pom</packaging>
 

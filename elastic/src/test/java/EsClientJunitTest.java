@@ -44,7 +44,7 @@ public class EsClientJunitTest {
         RestHighLevelClient restClient = EsHighRestClient.initClient();
         System.out.println(restClient);
 
-        CreateIndexRequest indexRequest = new CreateIndexRequest("book");
+        CreateIndexRequest indexRequest = new CreateIndexRequest("assets");
         indexRequest.settings(Settings.builder().put("index.number_of_shards", 5).put("index.number_of_replicas", 2));
         CreateIndexResponse indexResponse = restClient.indices().create(indexRequest, RequestOptions.DEFAULT);
         boolean success = indexResponse.isAcknowledged();
@@ -352,7 +352,7 @@ public class EsClientJunitTest {
         IndexRequest indexRequest = null;
         while (selectCount < count) {
             restClient = EsHighRestClient.initClient();
-            indexRequest = new IndexRequest("asset", "change");
+            indexRequest = new IndexRequest("assets", "change");
             selectCount += pageSize;
             pageNo += 1;
             list = jdbcTemplate.query(sql, new Object[]{pageNo, pageSize}, new RowMapper<Asset>() {
@@ -380,7 +380,10 @@ public class EsClientJunitTest {
                 }
             });
 
+
+            XContentBuilder builder=XContentFactory.jsonBuilder();
             indexRequest.source(list.toArray());
+            IndexResponse indexResponse = restClient.index(indexRequest, RequestOptions.DEFAULT);
             restClient.close();
 
         }

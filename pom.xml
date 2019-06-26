@@ -30,6 +30,7 @@
         <module>code-generator</module>
         <module>spring-mvc</module>
         <module>spring-webflux</module>
+        <module>shardingsphere</module>
     </modules>
     <packaging>pom</packaging>
 

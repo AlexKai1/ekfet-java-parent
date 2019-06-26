@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ekfet.mybatis.plus</groupId>
-    <artifactId>boot-mybatis-plus</artifactId>
+    <artifactId>mybatis-plus</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>boot-mybatis-plus</name>
     <description>Demo project for Spring Boot</description>

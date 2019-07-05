@@ -29,7 +29,7 @@ public class MpGenerator {
         gc.setOutputDir("D://");
         gc.setFileOverride(true);
         gc.setActiveRecord(true);// 不需要ActiveRecord特性的请改为false
-        gc.setEnableCache(false);// XML 二级缓存
+        gc.setEnableCache(true);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
         gc.setBaseColumnList(false);// XML columList
         // .setKotlin(true) 是否生成 kotlin 代码
@@ -56,8 +56,8 @@ public class MpGenerator {
         });
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("Qq123456");
-        dsc.setUrl("jdbc:mysql://192.168.1.77:3306/db_blockchain_invested?characterEncoding=utf8");
+        dsc.setPassword("password");
+        dsc.setUrl("jdbc:mysql://192.168.1.112:3306/db_blockchain_invested?characterEncoding=utf8&useSSL=false");
         mpg.setDataSource(dsc);
 
         // 策略配置

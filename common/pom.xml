@@ -13,7 +13,11 @@
     <packaging>jar</packaging>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.cronutils</groupId>
+            <artifactId>cron-utils</artifactId>
+            <version>9.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

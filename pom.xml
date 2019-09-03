@@ -32,12 +32,15 @@
         <module>spring-webflux</module>
         <module>shardingsphere</module>
         <module>zk-curator</module>
+        <module>redis</module>
+        <module>dubbo</module>
+        <module>dync-compile</module>
     </modules>
     <packaging>pom</packaging>
 
     <properties>
 
-        <compiler.version>1.8</compiler.version>
+        <compiler.version>11</compiler.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>4.12</junit.version>
         <junit5.version>5.3.1</junit5.version>

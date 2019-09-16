@@ -26,7 +26,7 @@
         <module>jsengine</module>
         <module>mq</module>
         <module>fescar</module>
-        <module>mybatis-plus</module>
+        <module>boot-mybatis-plus</module>
         <module>code-generator</module>
         <module>spring-mvc</module>
         <module>spring-webflux</module>
@@ -36,6 +36,7 @@
         <module>dubbo</module>
         <module>dync-compile</module>
         <module>jvm</module>
+        <module>leetcode</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -21,6 +21,7 @@ public class Javassist {
 
             Field[] fields = ctClass.toClass().getFields();
             System.out.println("属性名称：" + fields[0].getName() + "  属性类型：" + fields[0].getType());
+           Class c=ctClass.toClass();
         } catch (Exception e) {
                 e.printStackTrace();
         }

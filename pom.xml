@@ -35,6 +35,7 @@
         <module>redis</module>
         <module>dubbo</module>
         <module>dync-compile</module>
+        <module>jvm</module>
     </modules>
     <packaging>pom</packaging>
 

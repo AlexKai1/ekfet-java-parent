@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--默认构造函数-->
+    <bean id="helloSpring1" class="com.ekfet.spring.ioc.HelloSpring"></bean>
+
+    <!--构造函数-->
+    <bean id="helloSpring2" class="com.ekfet.spring.ioc.HelloSpring">
+        <constructor-arg index="0" value="luobo"/>
+        <constructor-arg name="age" value="20"/>
+    </bean>
+
+    <!--静态工厂-->
+    <bean id="helloSpring3" class="com.ekfet.spring.ioc.HelloSpring" factory-method="build">
+
+    </bean>
+
+
+</beans>

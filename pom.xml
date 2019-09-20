@@ -37,6 +37,9 @@
         <module>dync-compile</module>
         <module>jvm</module>
         <module>leetcode</module>
+        <module>design-patterns</module>
+        <module>spring-ioc</module>
+        <module>spring-tx</module>
     </modules>
     <packaging>pom</packaging>
 

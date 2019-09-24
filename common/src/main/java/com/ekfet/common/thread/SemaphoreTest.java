@@ -33,9 +33,9 @@ public class SemaphoreTest {
         public void run() {
             try {
                 this.semaphore.acquire();
-                System.out.println("工人 work num=" + this.num);
+                System.out.println("工人 work num= " + this.num+" threadName="+this.semaphore.toString());
                 Thread.sleep(1000);
-                System.out.println("工人" + this.num + "释放出机器");
+                System.out.println("工人" + this.num + "释放出机器" +" threadName="+this.semaphore.toString());
                 this.semaphore.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();

@@ -18,7 +18,6 @@ public class CountDownLatchTest {
     private  static ExecutorService executorService= newFixedThreadPool(5);
 
     public static void main(String[] args) throws Exception {
-
         System.out.println("start============");
         executorService.execute(()->{
 

@@ -21,7 +21,7 @@ public class ConditionTest {
     }
 
     public void test() {
-        new Thread(() -> {
+        Thread thread1 = new Thread(() -> {
             reentrantLock.lock();
             System.out.println(Thread.currentThread().getName() + "getTestLock.......");
             try {
@@ -32,8 +32,8 @@ public class ConditionTest {
             }
             reentrantLock.unlock();
 
-        }).start();
-
+        });
+        thread1.start();
         new Thread(() -> {
             reentrantLock.lock();
             System.out.println(Thread.currentThread().getName() + "getTestLock++++");

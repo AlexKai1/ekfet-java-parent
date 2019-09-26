@@ -15,9 +15,9 @@
 
     <modules>
         <module>boot-redis</module>
-        <module>boot-hystrix</module>
         <module>boot-eureka</module>
         <module>boot-mybatis</module>
         <module>boot-tomcat</module>
+        <module>boot-hystrix</module>
     </modules>
 </project>

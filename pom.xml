@@ -51,7 +51,7 @@
         <junit.version>4.12</junit.version>
         <junit5.version>5.5.2</junit5.version>
         <mockito.version>3.0.0</mockito.version>
-        <netty.version>4.1.30.Final</netty.version>
+        <netty.version>4.1.42.Final</netty.version>
         <akka-actor.version>2.5.16</akka-actor.version>
         <spring.framework.version>5.1.9.RELEASE</spring.framework.version>
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
